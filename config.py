@@ -5,7 +5,14 @@ from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
 
-# Load environment variables from .env
+
+secret_env_path = "/secrets/app-env-vars.json"
+if os.path.exists(secret_env_path):
+    import json
+    with open(secret_env_path) as f:
+        secret_vars = json.load(f)
+    os.environ.update(secret_vars)
+
 load_dotenv()
 
 class Settings(BaseSettings):
@@ -35,11 +42,16 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # Firebase initialization
-cred = credentials.Certificate(settings.FIREBASE_CREDENTIALS)
+firebase_creds_path = settings.FIREBASE_CREDENTIALS or "/secrets/firebase-adminsdk.json"
+if not os.path.exists(firebase_creds_path):
+    raise RuntimeError(f"Firebase credentials not found at: {firebase_creds_path}")
+
+cred = credentials.Certificate(firebase_creds_path)
 firebase_admin.initialize_app(cred, {
     'databaseURL': settings.FIREBASE_DATABASE_URL
 })
 
-# Create and export database client
+# 4. Firestore client
 db = firestore.client()
+
 __all__ = ['db', 'settings']
