@@ -6,7 +6,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore, auth
 
 
-secret_env_path = "/secrets/app-env-vars/app-env-vars.json"
+secret_env_path = "/secret/app-env-vars/app-env-vars.json"
 if os.path.exists(secret_env_path):
     import json
     with open(secret_env_path) as f:
@@ -42,7 +42,7 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # Firebase initialization
-firebase_creds_path = settings.FIREBASE_CREDENTIALS or "/secrets/firebase-adminsdk/firebase-adminsdk.json"
+firebase_creds_path = settings.FIREBASE_CREDENTIALS or "/secret/firebase-adminsdk/firebase-adminsdk.json"
 if not os.path.exists(firebase_creds_path):
     raise RuntimeError(f"Firebase credentials not found at: {firebase_creds_path}")
 
