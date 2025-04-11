@@ -42,7 +42,7 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # Firebase initialization
-firebase_creds_path = settings.FIREBASE_CREDENTIALS or "/secrets/firebase-adminsdk/firebase-adminsdk.json"
+firebase_creds_path = "/secrets/firebase-adminsdk/firebase-adminsdk.json" or settings.FIREBASE_CREDENTIALS
 if not os.path.exists(firebase_creds_path):
     raise RuntimeError(f"Firebase credentials not found at: {firebase_creds_path}")
 
