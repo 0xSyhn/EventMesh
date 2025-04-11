@@ -51,6 +51,9 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': settings.FIREBASE_DATABASE_URL
 })
 
+print(f"Loaded secrets from: {secret_env_path}")
+print(f"FIREBASE_PROJECT_ID: {os.getenv('FIREBASE_PROJECT_ID')}")
+
 # 4. Firestore client
 db = firestore.client()
 
