@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     # API settings
     API_DEBUG: bool = os.getenv("API_DEBUG", "False").lower() in ("true", "1", "t")
     API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
-    API_PORT: int = int(os.getenv("API_PORT", "8000"))
+    API_PORT: int = int(os.getenv("API_PORT", "8080"))
     
     # Event settings
     DEFAULT_EVENT_RADIUS_KM: float = 10.0

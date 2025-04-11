@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api import users, events, connections, feedback, admin
 from app.api.feedback import router as feedback_router
 from app.api.dashboard import router as dashboard_router
+import uvicorn
 
 app = FastAPI(
     title="EventMesh API",
@@ -33,5 +34,5 @@ async def root():
     return {"message": "Welcome to EventMesh API"}
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("API_PORT", 8080))
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
